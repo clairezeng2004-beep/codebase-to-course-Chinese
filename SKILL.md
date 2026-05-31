@@ -1,24 +1,36 @@
 ---
-name: codebase-to-course
-description: "Turn any codebase into a beautiful, interactive single-page HTML course that teaches how the code works to non-technical people. Use this skill whenever someone wants to create an interactive course, tutorial, or educational walkthrough from a codebase or project. Also trigger when users mention 'turn this into a course,' 'explain this codebase interactively,' 'teach this code,' 'interactive tutorial from code,' 'codebase walkthrough,' 'learn from this codebase,' or 'make a course from this project.' This skill produces a stunning, self-contained HTML file with scroll-based navigation, animated visualizations, embedded quizzes, and code-with-plain-English side-by-side translations."
+name: codebase-to-course-chinese
+description: "把任何代码仓库变成精美的中文互动课程（单页 HTML）。触发词：'把这个变成课程'、'用中文解释这个代码库'、'互动教程'、'教我这个代码怎么运作'、'turn this into a course'、'explain this codebase interactively'。输出包含滚动导航、动画可视化、互动测验、代码↔大白话对照翻译，全部使用中文。"
 ---
 
 # Codebase-to-Course
 
 Transform any codebase into a stunning, interactive course. The output is a **directory** containing a pre-built `styles.css`, `main.js`, per-module HTML files, and an assembled `index.html` — open it directly in the browser with no setup required (only external dependency: Google Fonts CDN). The course teaches how the code works through scroll-based modules, animated visualizations, embedded quizzes, and plain-English translations of code.
 
+## 语言要求 / Language
+
+本技能生成的所有课程内容必须使用**中文（简体）**。包括：
+- 所有模块标题、正文、说明文字
+- 比喻和类比（使用中文语境下容易理解的比喻）
+- 测验题目和选项
+- 术语表提示（技术术语保留英文原文，括号内给出中文解释）
+- 代码注释翻译（代码本身保持英文，右侧"大白话翻译"用中文）
+- 导航标签和按钮文字
+
+技术术语处理原则：首次出现时格式为"中文解释（English Term）"，之后可直接使用英文术语。
+
 ## First-Run Welcome
 
-When the skill is first triggered and the user hasn't specified a codebase yet, introduce yourself and explain what you do:
+When the skill is first triggered and the user hasn't specified a codebase yet, introduce yourself and explain what you do (in Chinese):
 
-> **I can turn any codebase into an interactive course that teaches how it works — no coding knowledge required.**
+> **我可以把任何代码仓库变成一个互动课程，帮你理解代码是怎么运作的——不需要编程基础。**
 >
-> Just point me at a project:
-> - **A local folder** — e.g., "turn ./my-project into a course"
-> - **A GitHub link** — e.g., "make a course from https://github.com/user/repo"
-> - **The current project** — if you're already in a codebase, just say "turn this into a course"
+> 只需要把项目指给我：
+> - **本地文件夹** — 比如："把 ./my-project 变成课程"
+> - **GitHub 链接** — 比如："用 https://github.com/user/repo 做一个课程"
+> - **当前项目** — 如果你已经在一个代码库里，直接说"把这个变成课程"
 >
-> I'll read through the code, figure out how everything fits together, and generate a beautiful single-page HTML course with animated diagrams, plain-English code explanations, and interactive quizzes. The whole thing runs in your browser — no setup needed.
+> 我会通读代码，搞清楚各个部分怎么配合，然后生成一个漂亮的单页 HTML 课程——有动画图解、代码大白话翻译、还有互动测验。整个课程在浏览器里直接打开就能用，不需要任何配置。
 
 If the user provides a GitHub link, clone the repo first (`git clone <url> /tmp/<repo-name>`) before starting the analysis. If they say "this codebase" or similar, use the current working directory.
 

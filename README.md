@@ -1,92 +1,85 @@
-# Codebase to Course
+# Codebase to Course（中文版）
 
-A Claude Code skill that turns any codebase into a beautiful, interactive single-page HTML course.
+> Fork from [zarazhangrui/codebase-to-course](https://github.com/zarazhangrui/codebase-to-course)
 
-Point it at a repo. Get back a stunning, self-contained course that teaches how the code works — with scroll-based navigation, animated visualizations, embedded quizzes, and code-with-plain-English side-by-side translations.
+一个 Claude Code 技能，能把任何代码仓库变成精美的中文互动课程（单页 HTML）。
 
-## Who is this for?
+把代码仓库指给它，就能得到一个教你代码如何运作的互动课程——有滚动导航、动画可视化、嵌入式测验，以及代码↔大白话对照翻译。
 
-**"Vibe coders"** — people who build software by instructing AI coding tools in natural language, without a traditional CS education.
+## 这是给谁用的？
 
-You've built something (or found something cool on GitHub). It works. But you don't really understand *how* it works under the hood. This skill generates a course that teaches you — not by lecturing, but by tracing what happens when you actually use the app.
+**"氛围编程者"（Vibe Coders）** —— 用自然语言指挥 AI 编程工具来构建软件的人，没有传统计算机科学教育背景。
 
-**Your goals are practical, not academic:**
-- Steer AI coding tools better (make smarter architectural decisions)
-- Detect when AI is wrong (spot hallucinations, catch bad patterns)
-- Debug when AI gets stuck (break out of bug loops)
-- Talk to engineers without feeling lost
+你做了一个东西（或在 GitHub 上发现了一个很酷的项目）。它能用。但你不太明白它底层是*怎么*运作的。这个技能会生成一个课程来教你——不是通过说教，而是追踪你实际使用时发生了什么。
 
-You're not trying to become a software engineer. You want coding as a superpower.
+**你的目标是实用的，不是学术的：**
+- 更好地驾驭 AI 编程工具（做出更聪明的架构决策）
+- 识别 AI 出错的时候（发现幻觉，捕捉坏模式）
+- AI 卡住时能调试（跳出 bug 循环）
+- 跟工程师对话时不再迷茫
 
-## What the course looks like
+你不是要成为软件工程师。你想要编程作为超能力。
 
-The output is a **single HTML file** — no dependencies, no setup, works offline. It includes:
+## 课程长什么样
 
-- **Scroll-based modules** with progress tracking and keyboard navigation
-- **Code ↔ Plain English translations** — real code on the left, what it means on the right
-<img width="720" alt="Code translation block" src="https://github.com/user-attachments/assets/fb9e7fac-05c1-4f98-b80c-46543ef81afc" />
+输出是一个**单个 HTML 文件** —— 无依赖、无需配置、离线可用。它包含：
 
-- **Animated visualizations** — data flow animations, group chat between components, architecture diagrams
-<img width="720" alt="Animated data flow" src="https://github.com/user-attachments/assets/20fb403e-7dfd-4a47-989b-bbae86ca8041" />
+- **滚动式模块**，带进度追踪和键盘导航
+- **代码 ↔ 大白话翻译** —— 左边是真实代码，右边是中文解释
+- **动画可视化** —— 数据流动画、组件间群聊、架构图
+- **互动测验** —— 测试*应用*而非死记硬背（"你想加个收藏功能——哪些文件需要改？"）
+- **术语表悬浮提示** —— 鼠标悬停任何技术术语查看中文定义
+- **温暖、有辨识度的设计** —— 不是那种千篇一律的紫色渐变 AI 风格
 
-- **Interactive quizzes** that test *application* not memorization ("You want to add favorites — which files change?")
-<img width="720" alt="Interactive quiz" src="https://github.com/user-attachments/assets/57706496-9fa8-457a-8450-3da22789951c" />
+## 如何使用
 
-- **Glossary tooltips** — hover any technical term for a plain-English definition
-<img width="720" alt="Glossary tooltip" src="https://github.com/user-attachments/assets/ac2f160a-d73f-4779-97b2-a06fdb5f3227" />
+### 作为 Claude Code 技能
 
-  
-- **Warm, distinctive design** — not the typical purple-gradient AI look
+1. 把 `codebase-to-course-Chinese` 文件夹复制到 `~/.claude/skills/`
+2. 在 Claude Code 中打开任何项目
+3. 说："把这个代码库变成互动课程"
 
-## How to use
+### 触发短语
 
-### As a Claude Code skill
+- "把这个变成课程"
+- "用中文解释这个代码库"
+- "从这个项目做一个课程"
+- "教我这个代码怎么运作"
+- "互动教程"
 
-1. Copy the `codebase-to-course` folder into `~/.claude/skills/`
-2. Open any project in Claude Code
-3. Say: *"Turn this codebase into an interactive course"*
+## 设计理念
 
-### Trigger phrases
+### 先做后懂
 
-- "Turn this into a course"
-- "Explain this codebase interactively"
-- "Make a course from this project"
-- "Teach me how this code works"
-- "Interactive tutorial from this code"
+颠覆传统计算机教育。老路子：背概念好几年 → 终于做个东西 → 终于明白有什么用（大多数人在第三步前就放弃了）。新路子：**先做出东西 → 体验它能用 → 现在来理解它怎么运作。**
 
-## Design philosophy
+### 展示，别说教
 
-### Build first, understand later
+每个屏幕至少 50% 是视觉内容。每个文字块最多 2-3 句话。如果一个东西可以是图表、动画或互动元素——它就不该是一段文字。
 
-This inverts traditional CS education. The old way: memorize concepts for years → eventually build something → finally see the point (most people quit before step 3). This way: **build something → experience it working → now understand how it works.**
+### 测验测的是"做"，不是"知道"
 
-### Show, don't tell
+没有"API 的全称是什么？"这种题。而是："用户反映切换页面后数据不更新。你首先查哪里？"测验检验的是你能否*用*学到的东西解决新问题。
 
-Every screen is at least 50% visual. Max 2-3 sentences per text block. If something can be a diagram, animation, or interactive element — it shouldn't be a paragraph.
-
-### Quizzes test doing, not knowing
-
-No "What does API stand for?" Instead: "A user reports stale data after switching pages. Where would you look first?" Quizzes test whether you can *use* what you learned to solve a new problem.
-
-### No recycled metaphors
-
-Each concept gets a metaphor that fits *that specific idea*. A database is a library with a card catalog. Auth is a bouncer checking IDs. API rate limiting is a nightclub with a capacity limit. Never the same metaphor twice.
-
-### Original code only
-
-Code snippets are exact copies from the real codebase — never modified or simplified. The learner should be able to open the actual file and see the same code they learned from.
-
-## Skill structure
+## 技能结构
 
 ```
-codebase-to-course/
-├── SKILL.md                          # Main skill instructions
+codebase-to-course-Chinese/
+├── SKILL.md                          # 主技能说明
+├── README.md                         # 本文件
 └── references/
-    ├── design-system.md              # CSS tokens, typography, colors, layout
-    └── interactive-elements.md       # Quiz, animation, and visualization patterns
+    ├── _base.html                    # HTML 模板
+    ├── _footer.html                  # 页脚
+    ├── build.sh                      # 构建脚本
+    ├── styles.css                    # 样式（含中文字体）
+    ├── main.js                       # 交互逻辑
+    ├── design-system.md              # CSS 设计系统
+    ├── interactive-elements.md       # 互动元素模式
+    ├── content-philosophy.md         # 内容哲学
+    ├── gotchas.md                    # 常见坑
+    └── module-brief-template.md      # 模块简报模板
 ```
-
 
 ---
 
-Built by [Zara](https://x.com/zarazhangrui) with Claude Code.
+基于 [Zara](https://x.com/zarazhangrui) 的原始项目，中文版由 Claire 维护。
