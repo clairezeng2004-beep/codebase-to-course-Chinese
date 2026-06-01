@@ -321,6 +321,7 @@
     const typingAvEl  = $('#' + containerEl.id + '-typing-avatar') || $('.chat-avatar', typingEl);
     const progressEl  = $('.chat-progress', containerEl);
     let index = 0;
+    let isShowing = false;
 
     // Build actor map from messages
     const actors = {};
@@ -333,11 +334,27 @@
     });
 
     function updateProgress() {
-      if (progressEl) progressEl.textContent = index + ' / ' + messages.length + ' messages';
+      if (progressEl) progressEl.textContent = index + ' / ' + messages.length + ' 条消息';
+      updateControls();
+    }
+
+    function updateControls() {
+      if (!nextBtn) return;
+      if (index >= messages.length) {
+        nextBtn.textContent = '已完成播放';
+        nextBtn.disabled = true;
+      } else {
+        nextBtn.textContent = nextBtn.dataset.defaultLabel || '下一条';
+        nextBtn.disabled = false;
+      }
     }
 
     function showNext() {
-      if (index >= messages.length) return;
+      if (isShowing || index >= messages.length) {
+        updateControls();
+        return;
+      }
+      isShowing = true;
       const msg    = messages[index];
       const sender = msg.dataset.sender;
 
@@ -354,6 +371,7 @@
         msg.style.display = 'flex';
         msg.style.animation = 'fadeSlideUp 0.3s var(--ease-out)';
         index++;
+        isShowing = false;
         updateProgress();
       }, 800);
     }
@@ -367,20 +385,24 @@
 
     function reset() {
       index = 0;
+      isShowing = false;
       messages.forEach(m => { m.style.display = 'none'; m.style.animation = ''; });
       if (typingEl) typingEl.style.display = 'none';
       updateProgress();
+      showNext();
     }
 
     // Bind controls
     const nextBtn  = $('.chat-next-btn',  containerEl);
     const allBtn   = $('.chat-all-btn',   containerEl);
     const resetBtn = $('.chat-reset-btn', containerEl);
+    if (nextBtn) nextBtn.dataset.defaultLabel = nextBtn.textContent.trim() || '下一条';
     if (nextBtn)  nextBtn.addEventListener('click',  showNext);
     if (allBtn)   allBtn.addEventListener('click',   showAll);
     if (resetBtn) resetBtn.addEventListener('click', reset);
 
     updateProgress();
+    showNext();
   }
 
   $$('.chat-window').forEach(el => initChat(el));

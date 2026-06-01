@@ -282,7 +282,7 @@ chips.forEach(chip => {
 
 ## Group Chat Animation
 
-iMessage/WeChat-style chat showing components "talking" to each other. Messages appear one by one with typing indicators.
+iMessage/WeChat-style chat showing components "talking" to each other. The first message appears automatically, then the learner can continue one by one or play all remaining messages.
 
 **Wiring:** `main.js` auto-initializes every `.chat-window` on page load. Give each chat window a unique `id`. Control buttons need these classes: `.chat-next-btn`, `.chat-all-btn`, `.chat-reset-btn`. The typing indicator avatar element should have `id="{chatWindowId}-typing-avatar"` or simply be the first `.chat-avatar` inside `.chat-typing`.
 
@@ -310,9 +310,9 @@ iMessage/WeChat-style chat showing components "talking" to each other. Messages 
   </div>
 
   <div class="chat-controls">
-    <button class="btn chat-next-btn">Next Message</button>
-    <button class="btn chat-all-btn">Play All</button>
-    <button class="btn chat-reset-btn">Replay</button>
+    <button class="btn chat-next-btn">下一条</button>
+    <button class="btn chat-all-btn">全部播放</button>
+    <button class="btn chat-reset-btn">重播</button>
     <span class="chat-progress"></span>
   </div>
 </div>
