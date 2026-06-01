@@ -178,7 +178,7 @@ For testing understanding with instant feedback. Each question has options, one 
   max-height: 0; overflow: hidden; opacity: 0;
   transition: max-height var(--duration-normal), opacity var(--duration-normal);
 }
-.quiz-feedback.show { max-height: 200px; opacity: 1; padding: var(--space-3); margin-top: var(--space-2); border-radius: var(--radius-sm); }
+.quiz-feedback.show { max-height: none; overflow: visible; opacity: 1; padding: var(--space-3); margin-top: var(--space-2); border-radius: var(--radius-sm); }
 .quiz-feedback.success { background: var(--color-success-light); color: var(--color-success); }
 .quiz-feedback.error { background: var(--color-error-light); color: var(--color-error); }
 ```
@@ -337,7 +337,7 @@ iMessage/WeChat-style chat showing components "talking" to each other. Messages 
 
 ## Message Flow / Data Flow Animation
 
-Step-by-step visualization of data moving between components. User clicks "Next Step" to advance.
+逐步展示数据在组件之间移动。用户点击“下一步”继续。
 
 **Wiring:** `main.js` auto-initializes every `.flow-animation` on page load. Pass steps as JSON in `data-steps`. Each step object: `{ highlight: "flow-actor-id", label: "description", packet: true, from: "actor-id-suffix", to: "actor-id-suffix" }`. Actor element IDs must be `flow-actor-1`, `flow-actor-2`, etc. Control buttons need classes `.flow-next-btn` and `.flow-reset-btn`.
 
@@ -353,25 +353,25 @@ Step-by-step visualization of data moving between components. User clicks "Next 
   <div class="flow-actors">
     <div class="flow-actor" id="flow-actor-1">
       <div class="flow-actor-icon">A</div>
-      <span>Actor 1</span>
+      <span>参与者 1</span>
     </div>
     <div class="flow-actor" id="flow-actor-2">
       <div class="flow-actor-icon">B</div>
-      <span>Actor 2</span>
+      <span>参与者 2</span>
     </div>
     <div class="flow-actor" id="flow-actor-3">
       <div class="flow-actor-icon">C</div>
-      <span>Actor 3</span>
+      <span>参与者 3</span>
     </div>
   </div>
 
   <div class="flow-packet" id="flow-packet"></div>
 
-  <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+  <div class="flow-step-label" id="flow-label">点击“下一步”开始</div>
 
   <div class="flow-controls">
-    <button class="btn flow-next-btn">Next Step</button>
-    <button class="btn flow-reset-btn">Restart</button>
+    <button class="btn flow-next-btn">下一步</button>
+    <button class="btn flow-reset-btn">重新开始</button>
     <span class="flow-progress"></span>
   </div>
 </div>

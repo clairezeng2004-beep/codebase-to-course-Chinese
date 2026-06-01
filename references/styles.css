@@ -444,7 +444,8 @@ p:last-child { margin-bottom: 0; }
   border-radius: var(--radius-sm);
 }
 .quiz-feedback.show {
-  max-height: 200px;
+  max-height: none;
+  overflow: visible;
   opacity: 1;
   padding: var(--space-3);
   margin-top: var(--space-2);
@@ -879,7 +880,8 @@ p:last-child { margin-bottom: 0; }
   border-radius: var(--radius-sm);
 }
 .bug-feedback.show {
-  max-height: 200px;
+  max-height: none;
+  overflow: visible;
   opacity: 1;
   padding: var(--space-3);
 }

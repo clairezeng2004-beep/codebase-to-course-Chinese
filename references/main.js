@@ -438,7 +438,7 @@
     function reset() {
       step = 0;
       $$('.flow-actor', containerEl).forEach(a => a.classList.remove('active'));
-      if (labelEl) labelEl.textContent = 'Click "Next Step" to begin';
+      if (labelEl) labelEl.textContent = '点击“下一步”开始';
       if (packet)  packet.style.display = 'none';
       updateProgress();
     }
