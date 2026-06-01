@@ -284,7 +284,7 @@ chips.forEach(chip => {
 
 iMessage/WeChat-style chat showing components "talking" to each other. The first message appears automatically, then the learner can continue one by one or play all remaining messages.
 
-**Wiring:** `main.js` auto-initializes every `.chat-window` on page load. Give each chat window a unique `id`. Control buttons need these classes: `.chat-next-btn`, `.chat-all-btn`, `.chat-reset-btn`. The typing indicator avatar element should have `id="{chatWindowId}-typing-avatar"` or simply be the first `.chat-avatar` inside `.chat-typing`.
+**Wiring:** `main.js` auto-initializes every `.chat-window` on page load. Give each chat window a unique `id`. Control buttons need these classes: `.chat-prev-btn`, `.chat-next-btn`, `.chat-all-btn`, `.chat-reset-btn`. The typing indicator avatar element should have `id="{chatWindowId}-typing-avatar"` or simply be the first `.chat-avatar` inside `.chat-typing`.
 
 **HTML:**
 ```html
@@ -310,6 +310,7 @@ iMessage/WeChat-style chat showing components "talking" to each other. The first
   </div>
 
   <div class="chat-controls">
+    <button class="btn chat-prev-btn">上一步</button>
     <button class="btn chat-next-btn">下一条</button>
     <button class="btn chat-all-btn">全部播放</button>
     <button class="btn chat-reset-btn">重播</button>
@@ -669,9 +670,13 @@ The most important accessibility feature for non-technical learners. Any technic
   font-size: var(--text-sm);
   font-family: var(--font-body);
   line-height: var(--leading-normal);
-  width: max(200px, min(320px, 80vw));
+  width: max(240px, min(520px, calc(100vw - 16px)));
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
   box-shadow: var(--shadow-lg);
-  pointer-events: none;
+  pointer-events: auto;
   opacity: 0;
   transition: opacity var(--duration-fast);
   z-index: 10000;        /* Above everything, including nav */
@@ -707,29 +712,50 @@ The most important accessibility feature for non-technical learners. Any technic
 ```javascript
 // Tooltip container — appended to body so it's never clipped
 let activeTooltip = null;
+let tooltipHideTimer = null;
 
 function positionTooltip(term, tip) {
   const rect = term.getBoundingClientRect();
-  const tipWidth = 300; // approximate
+  const tipWidth = Math.min(520, Math.max(240, window.innerWidth - 16));
   let left = rect.left + rect.width / 2 - tipWidth / 2;
   // Clamp to viewport
   left = Math.max(8, Math.min(left, window.innerWidth - tipWidth - 8));
 
   // Try above first
-  let top = rect.top - 8;
   tip.style.left = left + 'px';
+  tip.style.width = tipWidth + 'px';
 
   // Position above by default, flip below if no room
   document.body.appendChild(tip);
   const tipHeight = tip.offsetHeight;
   if (rect.top - tipHeight - 8 < 0) {
     // Flip below
-    tip.style.top = (rect.bottom + 8) + 'px';
+    tip.style.top = Math.min(rect.bottom + 8, window.innerHeight - tipHeight - 8) + 'px';
     tip.classList.add('flip');
   } else {
-    tip.style.top = (rect.top - tipHeight - 8) + 'px';
+    tip.style.top = Math.max(8, rect.top - tipHeight - 8) + 'px';
     tip.classList.remove('flip');
   }
+}
+
+function showTooltip(term, tip) {
+  clearTimeout(tooltipHideTimer);
+  if (activeTooltip && activeTooltip !== tip) {
+    activeTooltip.classList.remove('visible');
+    activeTooltip.remove();
+  }
+  positionTooltip(term, tip);
+  requestAnimationFrame(() => tip.classList.add('visible'));
+  activeTooltip = tip;
+}
+
+function hideTooltip(tip) {
+  clearTimeout(tooltipHideTimer);
+  tooltipHideTimer = setTimeout(() => {
+    tip.classList.remove('visible');
+    setTimeout(() => { if (!tip.classList.contains('visible')) tip.remove(); }, 150);
+    if (activeTooltip === tip) activeTooltip = null;
+  }, 180);
 }
 
 document.querySelectorAll('.term').forEach(term => {
@@ -738,21 +764,10 @@ document.querySelectorAll('.term').forEach(term => {
   tip.textContent = term.dataset.definition;
 
   // Hover for desktop
-  term.addEventListener('mouseenter', () => {
-    if (activeTooltip && activeTooltip !== tip) {
-      activeTooltip.classList.remove('visible');
-      activeTooltip.remove();
-    }
-    positionTooltip(term, tip);
-    requestAnimationFrame(() => tip.classList.add('visible'));
-    activeTooltip = tip;
-  });
-
-  term.addEventListener('mouseleave', () => {
-    tip.classList.remove('visible');
-    setTimeout(() => { if (!tip.classList.contains('visible')) tip.remove(); }, 150);
-    activeTooltip = null;
-  });
+  term.addEventListener('mouseenter', () => showTooltip(term, tip));
+  term.addEventListener('mouseleave', () => hideTooltip(tip));
+  tip.addEventListener('mouseenter', () => showTooltip(term, tip));
+  tip.addEventListener('mouseleave', () => hideTooltip(tip));
 
   // Tap for mobile
   term.addEventListener('click', (e) => {

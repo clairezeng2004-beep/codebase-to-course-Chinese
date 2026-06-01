@@ -112,10 +112,11 @@
 
   /* ── GLOSSARY TOOLTIPS ─────────────────────────────────────── */
   let activeTooltip = null;
+  let tooltipHideTimer = null;
 
   function positionTooltip(term, tip) {
     const rect     = term.getBoundingClientRect();
-    const tipWidth = Math.min(320, Math.max(200, window.innerWidth * 0.8));
+    const tipWidth = Math.min(520, Math.max(240, window.innerWidth - 16));
     let left = rect.left + rect.width / 2 - tipWidth / 2;
     left = Math.max(8, Math.min(left, window.innerWidth - tipWidth - 8));
     tip.style.left  = left + 'px';
@@ -123,15 +124,16 @@
     document.body.appendChild(tip);
     const tipHeight = tip.offsetHeight;
     if (rect.top - tipHeight - 12 < 0) {
-      tip.style.top = (rect.bottom + 8) + 'px';
+      tip.style.top = Math.min(rect.bottom + 8, window.innerHeight - tipHeight - 8) + 'px';
       tip.classList.add('flip');
     } else {
-      tip.style.top = (rect.top - tipHeight - 8) + 'px';
+      tip.style.top = Math.max(8, rect.top - tipHeight - 8) + 'px';
       tip.classList.remove('flip');
     }
   }
 
   function showTooltip(term, tip) {
+    clearTimeout(tooltipHideTimer);
     if (activeTooltip && activeTooltip !== tip) {
       activeTooltip.classList.remove('visible');
       activeTooltip.remove();
@@ -142,9 +144,12 @@
   }
 
   function hideTooltip(tip) {
-    tip.classList.remove('visible');
-    setTimeout(() => { if (!tip.classList.contains('visible')) tip.remove(); }, 150);
-    if (activeTooltip === tip) activeTooltip = null;
+    clearTimeout(tooltipHideTimer);
+    tooltipHideTimer = setTimeout(() => {
+      tip.classList.remove('visible');
+      setTimeout(() => { if (!tip.classList.contains('visible')) tip.remove(); }, 150);
+      if (activeTooltip === tip) activeTooltip = null;
+    }, 180);
   }
 
   $$('.term').forEach(term => {
@@ -154,6 +159,8 @@
 
     term.addEventListener('mouseenter', () => showTooltip(term, tip));
     term.addEventListener('mouseleave', () => hideTooltip(tip));
+    tip.addEventListener('mouseenter', () => showTooltip(term, tip));
+    tip.addEventListener('mouseleave', () => hideTooltip(tip));
     term.addEventListener('click', e => {
       e.stopPropagation();
       tip.classList.contains('visible') ? hideTooltip(tip) : showTooltip(term, tip);
@@ -161,6 +168,7 @@
   });
 
   document.addEventListener('click', () => {
+    clearTimeout(tooltipHideTimer);
     if (activeTooltip) { activeTooltip.classList.remove('visible'); activeTooltip.remove(); activeTooltip = null; }
   });
 
@@ -339,13 +347,15 @@
     }
 
     function updateControls() {
-      if (!nextBtn) return;
-      if (index >= messages.length) {
-        nextBtn.textContent = '已完成播放';
-        nextBtn.disabled = true;
-      } else {
-        nextBtn.textContent = nextBtn.dataset.defaultLabel || '下一条';
-        nextBtn.disabled = false;
+      if (prevBtn) prevBtn.disabled = index <= 1 || isShowing;
+      if (nextBtn) {
+        if (index >= messages.length) {
+          nextBtn.textContent = '已完成播放';
+          nextBtn.disabled = true;
+        } else {
+          nextBtn.textContent = nextBtn.dataset.defaultLabel || '下一条';
+          nextBtn.disabled = isShowing;
+        }
       }
     }
 
@@ -374,6 +384,22 @@
         isShowing = false;
         updateProgress();
       }, 800);
+      updateControls();
+    }
+
+    function showPrev() {
+      if (isShowing || index <= 1) {
+        updateControls();
+        return;
+      }
+      const msg = messages[index - 1];
+      if (msg) {
+        msg.style.display = 'none';
+        msg.style.animation = '';
+      }
+      if (typingEl) typingEl.style.display = 'none';
+      index--;
+      updateProgress();
     }
 
     function showAll() {
@@ -393,10 +419,12 @@
     }
 
     // Bind controls
+    const prevBtn  = $('.chat-prev-btn',  containerEl);
     const nextBtn  = $('.chat-next-btn',  containerEl);
     const allBtn   = $('.chat-all-btn',   containerEl);
     const resetBtn = $('.chat-reset-btn', containerEl);
     if (nextBtn) nextBtn.dataset.defaultLabel = nextBtn.textContent.trim() || '下一条';
+    if (prevBtn)  prevBtn.addEventListener('click',  showPrev);
     if (nextBtn)  nextBtn.addEventListener('click',  showNext);
     if (allBtn)   allBtn.addEventListener('click',   showAll);
     if (resetBtn) resetBtn.addEventListener('click', reset);

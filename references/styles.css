@@ -1026,9 +1026,13 @@ p:last-child { margin-bottom: 0; }
   font-size: var(--text-sm);
   font-family: var(--font-body);
   line-height: var(--leading-normal);
-  width: max(200px, min(320px, 80vw));
+  width: max(240px, min(520px, calc(100vw - 16px)));
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
   box-shadow: var(--shadow-lg);
-  pointer-events: none;
+  pointer-events: auto;
   opacity: 0;
   transition: opacity var(--duration-fast);
   z-index: 10000;
@@ -1146,6 +1150,15 @@ p:last-child { margin-bottom: 0; }
   color: var(--color-text-secondary);
 }
 .btn:hover { border-color: var(--color-accent-muted); color: var(--color-accent); }
+.btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+  transform: none;
+}
+.btn:disabled:hover {
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
 .btn-primary {
   background: var(--color-accent);
   color: white;
