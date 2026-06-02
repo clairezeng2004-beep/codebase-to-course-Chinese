@@ -5,7 +5,7 @@ description: "把任何代码仓库变成精美的中文互动课程（单页 HT
 
 # Codebase-to-Course
 
-Transform any codebase into a stunning, interactive course. The output is a **directory** containing a pre-built `styles.css`, `main.js`, per-module HTML files, and an assembled `index.html` — open it directly in the browser with no setup required (only external dependency: Google Fonts CDN). The course teaches how the code works through scroll-based modules, animated visualizations, embedded quizzes, and plain-English translations of code.
+Transform any codebase into a stunning, interactive course. The output is a **directory** containing a pre-built `styles.css`, `main.js`, per-module HTML files, and a single assembled `{course-name}.html` file — open it directly in the browser with no setup required (only external dependency: Google Fonts CDN). The course teaches how the code works through scroll-based modules, animated visualizations, embedded quizzes, and plain-English translations of code.
 
 ## 语言要求 / Language
 
@@ -58,7 +58,7 @@ The learner already has context that traditional students don't — they've *use
 
 Every module answers **"why should I care?"** before "how does it work?" The answer to "why should I care?" is always practical: *because this knowledge helps you steer AI better, debug faster, or make smarter architectural decisions.*
 
-The directory-based output is intentional: separating CSS/JS from content means AI never regenerates boilerplate, each module is written independently (keeping output size small and quality high), and the assembled `index.html` works offline with zero setup.
+The directory-based output is intentional: separating CSS/JS from content means AI never regenerates boilerplate, each module is written independently (keeping output size small and quality high), and the assembled `{course-name}.html` works offline with zero setup.
 
 ---
 
@@ -153,8 +153,7 @@ course-name/
     01-intro.html
     02-actors.html
     ...
-  course-name.html ← assembled by build.sh with the project/course name
-  index.html       ← compatibility copy assembled by build.sh
+  course-name.html ← the only assembled course file, named after the project/course
 ```
 
 **Step 1 (both paths): Setup** — Create the course directory. Copy these four files verbatim using Read + Write (do not regenerate their contents):
@@ -193,7 +192,7 @@ After all agents finish, do a quick consistency check in the main context: nav d
 ```bash
 cd course-name && bash build.sh
 ```
-This produces `course-name.html` plus a compatibility copy named `index.html`. Prefer sharing or archiving the named HTML file so multiple courses do not all appear as `index.html`.
+This produces only `course-name.html`; `build.sh` removes any stale `index.html` so learners see one obvious HTML file to open.
 
 **Critical rules:**
 - **Never regenerate** `styles.css` or `main.js` — always copy from references

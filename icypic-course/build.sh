@@ -4,6 +4,6 @@
 set -e
 course_name="$(basename "$PWD")"
 output_file="${course_name}.html"
+rm -f index.html
 cat _base.html modules/*.html _footer.html > "$output_file"
-cp "$output_file" index.html
-echo "Built $output_file and index.html — open either in your browser."
+echo "Built $output_file — open it in your browser."
