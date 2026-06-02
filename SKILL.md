@@ -153,7 +153,8 @@ course-name/
     01-intro.html
     02-actors.html
     ...
-  index.html       ← assembled by build.sh (do not write manually)
+  course-name.html ← assembled by build.sh with the project/course name
+  index.html       ← compatibility copy assembled by build.sh
 ```
 
 **Step 1 (both paths): Setup** — Create the course directory. Copy these four files verbatim using Read + Write (do not regenerate their contents):
@@ -192,7 +193,7 @@ After all agents finish, do a quick consistency check in the main context: nav d
 ```bash
 cd course-name && bash build.sh
 ```
-This produces `index.html`. Open it in the browser.
+This produces `course-name.html` plus a compatibility copy named `index.html`. Prefer sharing or archiving the named HTML file so multiple courses do not all appear as `index.html`.
 
 **Critical rules:**
 - **Never regenerate** `styles.css` or `main.js` — always copy from references
@@ -204,7 +205,7 @@ This produces `index.html`. Open it in the browser.
 
 ### Phase 4: Review and Open
 
-After running `build.sh`, open `index.html` in the browser. Walk the user through what was built and ask for feedback on content, design, and interactivity.
+After running `build.sh`, open the generated `course-name.html` file in the browser. Walk the user through what was built and ask for feedback on content, design, and interactivity.
 
 ---
 
