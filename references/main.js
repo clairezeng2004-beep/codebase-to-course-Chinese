@@ -352,9 +352,11 @@
         if (index >= messages.length) {
           nextBtn.textContent = '已完成播放';
           nextBtn.disabled = true;
+          if (allBtn) allBtn.style.display = 'none';
         } else {
           nextBtn.textContent = nextBtn.dataset.defaultLabel || '下一条';
           nextBtn.disabled = isShowing;
+          if (allBtn) allBtn.style.display = '';
         }
       }
     }
