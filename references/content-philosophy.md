@@ -79,9 +79,9 @@ The goal of learning is practical application — being able to *do something* w
 - Anything that can be answered by scrolling up and copying — that tests scrolling, not understanding
 
 **Quiz tone:**
-- Wrong answers get encouraging, non-judgmental explanations ("Not quite — here's why...")
-- Correct answers get brief reinforcement of the underlying principle ("Exactly! This works because...")
-- Never punitive, never score-focused. No "You got 3/5!" — the quiz is a thinking exercise, not an exam
+- Wrong answers get encouraging, non-judgmental explanations ("不太对——原因是……")
+- Correct answers get brief reinforcement of the underlying principle ("答对了！这样能行是因为……")
+- Never punitive, never score-focused. No "你答对了 3/5！" — the quiz is a thinking exercise, not an exam
 - Wrong answer explanations should teach something new, not just say "wrong, the answer was B"
 
 **How many quizzes:** One per module, placed at the end after the learner has seen all the content. 3-5 questions per quiz. Each question should make the learner pause and *think*, not just pick the obvious answer.

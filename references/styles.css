@@ -1074,7 +1074,7 @@ p:last-child { margin-bottom: 0; }
   margin-left: var(--space-2);
   font-size: var(--text-xs);
 }
-.ft-children { margin-left: var(--space-4); }
+.ft-children { margin-left: var(--space-4); margin-top: var(--space-2); }
 
 /* ── ICON-LABEL ROWS ────────────────────────────────────────── */
 .icon-rows {

@@ -124,28 +124,28 @@ For testing understanding with instant feedback. Each question has options, one 
 <div class="quiz-container" id="quiz-module3">
   <div class="quiz-question-block"
        data-correct="option-b"
-       data-explanation-right="Exactly — because X is responsible for Y in this architecture."
-       data-explanation-wrong="Not quite. Think about where Y lives in the codebase...">
-    <h3 class="quiz-question">Question text here?</h3>
+       data-explanation-right="答对了——因为在这套架构里 X 负责 Y。"
+       data-explanation-wrong="不太对。想想 Y 在代码库里的位置……">
+    <h3 class="quiz-question">这里写问题？</h3>
     <div class="quiz-options">
       <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
         <div class="quiz-option-radio"></div>
-        <span>Answer A</span>
+        <span>选项 A</span>
       </button>
       <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
         <div class="quiz-option-radio"></div>
-        <span>Answer B (correct)</span>
+        <span>选项 B（正确）</span>
       </button>
       <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
         <div class="quiz-option-radio"></div>
-        <span>Answer C</span>
+        <span>选项 C</span>
       </button>
     </div>
     <div class="quiz-feedback"></div>
   </div>
 
-  <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
-  <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+  <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">检查答案</button>
+  <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">再试一次</button>
 </div>
 ```
 
@@ -193,19 +193,19 @@ For matching concepts to descriptions. Supports both mouse (HTML5 Drag API) and 
 ```html
 <div class="dnd-container">
   <div class="dnd-chips">
-    <div class="dnd-chip" draggable="true" data-answer="actor-a">Actor A</div>
-    <div class="dnd-chip" draggable="true" data-answer="actor-b">Actor B</div>
-    <div class="dnd-chip" draggable="true" data-answer="actor-c">Actor C</div>
+    <div class="dnd-chip" draggable="true" data-answer="actor-a">参与者 A</div>
+    <div class="dnd-chip" draggable="true" data-answer="actor-b">参与者 B</div>
+    <div class="dnd-chip" draggable="true" data-answer="actor-c">参与者 C</div>
   </div>
   <div class="dnd-zones">
     <div class="dnd-zone" data-correct="actor-a">
-      <p class="dnd-zone-label">Description for Actor A</p>
-      <div class="dnd-zone-target">Drop here</div>
+      <p class="dnd-zone-label">参与者 A 的描述</p>
+      <div class="dnd-zone-target">拖放到这里</div>
     </div>
-    <!-- more zones -->
+    <!-- 更多区域 -->
   </div>
-  <button onclick="checkDnD()">Check Matches</button>
-  <button onclick="resetDnD()">Reset</button>
+  <button onclick="checkDnD()">检查匹配</button>
+  <button onclick="resetDnD()">重置</button>
 </div>
 ```
 
@@ -293,8 +293,8 @@ iMessage/WeChat-style chat showing components "talking" to each other. The first
     <div class="chat-message" data-msg="0" data-sender="actor-a" style="display:none">
       <div class="chat-avatar" style="background: var(--color-actor-1)">A</div>
       <div class="chat-bubble">
-        <span class="chat-sender" style="color: var(--color-actor-1)">Actor A</span>
-        <p>Hey Background, I need the data for this item.</p>
+        <span class="chat-sender" style="color: var(--color-actor-1)">参与者 A</span>
+        <p>嘿，后台,我需要这个条目的数据。</p>
       </div>
     </div>
     <!-- more messages... -->
@@ -347,9 +347,9 @@ iMessage/WeChat-style chat showing components "talking" to each other. The first
 **HTML:**
 ```html
 <div class="flow-animation" data-steps='[
-  {"highlight":"flow-actor-1","label":"User clicks the button"},
-  {"highlight":"flow-actor-1","label":"Frontend sends request","packet":true,"from":"actor-1","to":"actor-2"},
-  {"highlight":"flow-actor-2","label":"Backend calls the database","packet":true,"from":"actor-2","to":"actor-3"}
+  {"highlight":"flow-actor-1","label":"用户点击按钮"},
+  {"highlight":"flow-actor-1","label":"前端发送请求","packet":true,"from":"actor-1","to":"actor-2"},
+  {"highlight":"flow-actor-2","label":"后端调用数据库","packet":true,"from":"actor-2","to":"actor-3"}
 ]'>
   <div class="flow-actors">
     <div class="flow-actor" id="flow-actor-1">
@@ -397,19 +397,19 @@ Full-system diagram where hovering/clicking a component shows a description tool
 ```html
 <div class="arch-diagram">
   <div class="arch-zone arch-zone-browser">
-    <h4 class="arch-zone-label">Browser</h4>
-    <div class="arch-component" data-desc="Injects UI into the web page, reads DOM, captures user actions"
+    <h4 class="arch-zone-label">浏览器</h4>
+    <div class="arch-component" data-desc="把界面注入网页、读取 DOM、捕获用户操作"
          onclick="showArchDesc(this)">
       <div class="arch-icon">📄</div>
-      <span>Component A</span>
+      <span>组件 A</span>
     </div>
-    <!-- more components -->
+    <!-- 更多组件 -->
   </div>
   <div class="arch-zone arch-zone-external">
-    <h4 class="arch-zone-label">External Services</h4>
-    <!-- API cards -->
+    <h4 class="arch-zone-label">外部服务</h4>
+    <!-- API 卡片 -->
   </div>
-  <div class="arch-description" id="arch-desc">Click any component to learn what it does</div>
+  <div class="arch-description" id="arch-desc">点击任意组件，了解它的作用</div>
 </div>
 ```
 
@@ -451,7 +451,7 @@ Show code with a deliberate bug. User clicks the buggy line. Reveal explains the
 **HTML:**
 ```html
 <div class="bug-challenge">
-  <h3>Find the bug in this code:</h3>
+  <h3>找出这段代码里的 bug：</h3>
   <div class="bug-code">
     <div class="bug-line" data-line="1" onclick="checkBugLine(this, false)">
       <span class="line-num">1</span>
@@ -484,11 +484,11 @@ window.checkBugLine = function(el, isCorrect) {
   const feedback = el.closest('.bug-challenge').querySelector('.bug-feedback');
   if (isCorrect) {
     el.classList.add('correct');
-    feedback.innerHTML = '<strong>Found it!</strong> The listener uses an async operation (fetch) but doesn\'t return true. Chrome closes the message channel before the response can be sent. Fix: add <code>return true;</code> at the end.';
+    feedback.innerHTML = '<strong>找到了！</strong> 这个监听器用了异步操作（fetch），却没有 return true。Chrome 会在响应发送之前关闭消息通道。修复方法：在末尾加上 <code>return true;</code>。';
     feedback.className = 'bug-feedback show success';
   } else {
     el.classList.add('incorrect');
-    feedback.innerHTML = 'Not this line — look for where the async timing might cause problems...';
+    feedback.innerHTML = '不是这一行——找找异步时序可能出问题的地方……';
     feedback.className = 'bug-feedback show error';
     setTimeout(() => { el.classList.remove('incorrect'); feedback.className = 'bug-feedback'; }, 2000);
   }
@@ -579,15 +579,15 @@ Grid of cards highlighting engineering patterns, tech stack components, or key c
 <div class="flow-steps">
   <div class="flow-step">
     <div class="flow-step-num">1</div>
-    <p>User clicks button</p>
+    <p>用户点击按钮</p>
   </div>
   <div class="flow-arrow">→</div>
   <div class="flow-step">
     <div class="flow-step-num">2</div>
-    <p>Component A detects click</p>
+    <p>组件 A 检测到点击</p>
   </div>
   <div class="flow-arrow">→</div>
-  <!-- more steps -->
+  <!-- 更多步骤 -->
 </div>
 ```
 
@@ -854,7 +854,7 @@ Use instead of paragraphs listing "this folder does X, that folder does Y." Much
   margin-left: var(--space-2);
   font-size: var(--text-xs);
 }
-.ft-children { margin-left: var(--space-4); }
+.ft-children { margin-left: var(--space-4); margin-top: var(--space-2); }
 ```
 
 ---
